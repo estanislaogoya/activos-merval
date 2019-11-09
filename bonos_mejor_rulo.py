@@ -2,84 +2,13 @@ import requests
 from pandas.io.json import json_normalize
 import pandas as pd
 import sys
-
-headers = {
-    "Content-Type": "application/json",
-    "AuthorizedClient": "321321321",
-    "ClientKey": "pp123456",
-    "Referer": "https://api.portfoliopersonal.com/Content/html/proxy.html",
-    "Sec-Fetch-Mode": "cors",
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
-}
+from data import bonoClaseMap, headers
 
 bonos_domain = 'https://api.portfoliopersonal.com/api/Cotizaciones/WatchList/12967?plazoId=3'
 
 response = requests.get(bonos_domain, headers=headers)
 
 df = json_normalize(response.json()['payload'])
-
-bonoClaseMap = {'A2E2C' : 'descarte',
-'A2E3C' : 'descarte',
-'A2E7C' : 'descarte',
-'A2E8C' : 'descarte',
-'A2J9C' : 'descarte',
-'AA21C' : 'descarte',
-'AA22C' : 'descarte',
-'AA25C' : 'descarte',
-'AA26C' : 'descarte',
-'AA37C' : 'descarte',
-'AA46C' : 'descarte',
-'AC17C' : 'descarte',
-'AE48C' : 'descarte',
-'AO20C' : 'descarte',
-'AY24C' : 'descarte',
-'DIA0C' : 'descarte',
-'DICAC' : 'descarte',
-'DICYC' : 'descarte',
-'PARAC' : 'descarte',
-'PARYC' : 'descarte',
-'A2E2D' : 'dolares',
-'A2E3D' : 'dolares',
-'A2E7D' : 'dolares',
-'A2E8D' : 'dolares',
-'A2J9D' : 'dolares',
-'AA21D' : 'dolares',
-'AA25D' : 'dolares',
-'AA26D' : 'dolares',
-'AA37D' : 'dolares',
-'AA46D' : 'dolares',
-'AC17D' : 'dolares',
-'AE48D' : 'dolares',
-'AO20D' : 'dolares',
-'AY24D' : 'dolares',
-'DIA0D' : 'dolares',
-'DICAD' : 'dolares',
-'DICPD' : 'dolares',
-'DICYD' : 'dolares',
-'DIY0D' : 'dolares',
-'PAA0D' : 'dolares',
-'PARAD' : 'dolares',
-'PARYD' : 'dolares',
-'PAY0D' : 'dolares',
-'A2E2' : 'pesos',
-'A2E7' : 'pesos',
-'AA21' : 'pesos',
-'AA25' : 'pesos',
-'AA26' : 'pesos',
-'AA37' : 'pesos',
-'AA46' : 'pesos',
-'AC17' : 'pesos',
-'AN18' : 'pesos',
-'AO20' : 'pesos',
-'AY24' : 'pesos',
-'DIA0' : 'pesos',
-'DICA' : 'pesos',
-'DICY' : 'pesos',
-'DIY0' : 'pesos',
-'PAA0' : 'pesos',
-'PARA' : 'pesos',
-'PARY' : 'pesos',
-'PAY0' : 'pesos'}
 
 def mapKeyToVal(x):
     return bonoClaseMap.get(x)

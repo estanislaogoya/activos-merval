@@ -1,16 +1,7 @@
 import requests
 from pandas.io.json import json_normalize
 import pandas as pd
-import datetime
-
-headers = { 
-    "Content-Type": "application/json",
-    "AuthorizedClient": "321321321",
-    "ClientKey": "pp123456",
-    "Referer": "https://api.portfoliopersonal.com/Content/html/proxy.html",
-    "Sec-Fetch-Mode": "cors",
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
-}
+from data import bonoClaseMap, headers, stocksClaseMap, monthClaseMap
 
 options_domain = 'https://api.portfoliopersonal.com/api/Cotizaciones/WatchList/12955?cotizacionSimplificada=true&plazoId=2'
 
@@ -25,34 +16,6 @@ df = json_normalize(response_options.json()['payload'])
 response_options = requests.get(stocks_domain, headers=headers)
 
 df_stocks = json_normalize(response_options.json()['payload'])
-
-stocksClaseMap = {'ALU' : 'ALUA',
-               'BMA' : 'BMA',
-               'BOL' : '',
-               'CEC' : '',
-               'CEP' : 'CEPU',
-               'COM' : 'COME',
-               'CRE' : 'CRES',
-               'CTO' : '',
-               'EDN' : 'EDN',
-               'GFG' : 'GGAL',
-               'GVA' : '',
-               'PAM' : 'PAMP',
-               'PBR' : '',
-               'SEM' : '',
-               'SUP' : 'SUPV',
-               'TGN' : 'TGNO4',
-               'TGS' : 'TGSU2',
-               'TRA' : 'TRAN',
-               'TXA' : 'TXAR',
-               'YPF' : 'YPFD',
-               }
-
-monthClaseMap = {'OC' : datetime.datetime(2019, 10, 18),
-               'O' : datetime.datetime(2019, 10, 18),
-               'DI' : datetime.datetime(2019, 12, 20),
-               'FE' : datetime.datetime(2020, 2, 21)
-               }
 
 def mapKeyToVal(x):
     return stocksClaseMap.get(x)
